@@ -33,19 +33,19 @@
 </head>
 
 <body>
-
+  <div id='container'>
   <header>
     {% include "header.html" %}
   </header>
-  <div id='container'>
-  <div id="content" role="main">
+
+  <div id="content">
     {% block main %}{% endblock %}
-  </div>
+  </div><!-- /content -->
 
   <footer>
     {% block footer %}{% endblock %}
   </footer>
-  </div>
+  </div><!-- /container -->
 
   <!-- JavaScript at the bottom for fast page loading -->
 
