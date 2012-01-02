@@ -9,7 +9,7 @@ app.config.from_object(settings)
 
 connect(app.config['MONGODB_DATABASE'], 
         host=app.config['MONGODB_SERVER'],
-        port=app.config['MONGODB_PORT'])
+        port=int(app.config['MONGODB_PORT']))
 
 class User(Document):
     email = EmailField(required=True)
