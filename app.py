@@ -1,8 +1,8 @@
 import os
 from flask import Flask
-from . import settings
+import settings
 app = Flask(__name__)
-app.config.from_object(settings)
+app.config.from_object(settings.py)
 
 @app.route("/")
 def hello():
