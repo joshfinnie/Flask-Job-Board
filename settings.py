@@ -9,8 +9,8 @@ Generate good secret keys:  http://flask.pocoo.org/docs/quickstart/#sessions
 
 SECRET_KEY = "this_is_my_secret_key_that_I_should_change_with_os.urandom"
 
-MONGOALCHEMY_DATABASE = ''
-MONGOALCHEMY_SERVER	= ''
-MONGOALCHEMY_PORT = ''
-MONGOALCHEMY_USER = ''
-MONGOALCHEMY_PASSWORD = ''
+MONGODB_DATABASE = 'app2312735'
+MONGODB_SERVER	= 'staff.mongohq.com'
+MONGODB_PORT = '10092'
+MONGODB_USER = 'heroku'
+MONGODB_PASSWORD = 'ded467f4021d3ca1c394707cbb2a8760'
