@@ -11,5 +11,5 @@ SECRET_KEY = "this_is_my_secret_key_that_I_should_change_with_os.urandom"
 
 # mongodb://heroku:ded467f4021d3ca1c394707cbb2a8760@staff.mongohq.com:10092/app2312735
 MONGODB_DATABASE = 'app2312735'
-MONGODB_SERVER	= 'heroku:ded467f4021d3ca1c394707cbb2a8760@staff.mongohq.com'
+MONGODB_SERVER	= 'staff.mongohq.com'
 MONGODB_PORT = '10092'

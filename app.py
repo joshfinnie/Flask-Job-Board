@@ -7,9 +7,11 @@ from mongoengine import connect, Document, StringField, EmailField, BooleanField
 app = Flask(__name__)
 app.config.from_object(settings)
 
-connect(app.config['MONGODB_DATABASE'], 
-        host=app.config['MONGODB_SERVER'],
-        port=10092)
+connect('app2312735', 
+        host='staff.mongohq.com',
+        port=10092, 
+        username='heroku',
+        password='ded467f4021d3ca1c394707cbb2a8760')
 
 class User(Document):
     email = EmailField(required=True)
