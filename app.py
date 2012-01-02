@@ -1,5 +1,5 @@
 import os
-import datetime
+from datetime import datetime
 from flask import Flask, render_template
 import settings
 from mongoengine import connect, Document, StringField, EmailField, BooleanField, DateTimeField, URLField
