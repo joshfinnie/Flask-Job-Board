@@ -60,7 +60,7 @@ def create_job():
 
 @app.route('/job/<job_id>')
 def show_job(job_id):
-	job = Job.object.withid(job_id)
+	job = Job.objects.withid(job_id)
 	return render_template('show_job.html', job=job)
 
 if __name__ == "__main__":
