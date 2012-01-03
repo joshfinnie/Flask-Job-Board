@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 import settings
 
 from mongoengine import connect, Document, StringField, EmailField, BooleanField, DateTimeField, URLField
-from wtforms import Form, BooleanField, TextField, validators, TextAreaField
+#from wtforms import Form, BooleanField, TextField, validators, TextAreaField
 
 app = Flask(__name__)
 app.config.from_object(settings)
@@ -29,7 +29,7 @@ class Job(Document):
 	application_instructions = StringField(required=True)
 	telework = BooleanField(required=True)
 	created = DateTimeField(default = datetime.utcnow())
-
+'''
 class Job_Form(Form):
 	company_name = TextField('Company Name', [validators.required()])
 	company_location = TextField('Company Location', [validators.required()])
@@ -37,6 +37,7 @@ class Job_Form(Form):
 	job_posting = TextAreaField('Job Posting', [validators.required()])
 	application_instructions = TextField("Application Instructions", [validators.required()])
 	telework = BooleanField('Telework?')
+'''
 
 @app.route("/")
 def hello():
@@ -52,7 +53,7 @@ def contact():
 
 @app.route('/create')
 def create_job():
-	form = Job_Form()
+#	form = Job_Form()
 	"""
 	if form.validate_on_submit():
 		job = Job(company_name=request.form['company_name'],
@@ -61,10 +62,9 @@ def create_job():
 		          job_posting=request.form['job_posting'],
 		          telework=request.form['telework'])
 		job.save()
-		next_url = "/%s" % job._id
 		redirect(url_for(next_url))	
 	"""
-	return render_template('create_job.html', form=form)
+	return render_template('create_job.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

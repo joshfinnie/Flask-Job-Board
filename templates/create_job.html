@@ -2,13 +2,12 @@
 
 {% block main %}
 <form method="post" action="/create">
-  {{ form.hidden_tag() }}
-  {{ form.company_name.lable }} {{ form.company_name }}<br />
-  {{ form.company_location.lable }} {{ form.company_location }}<br />
-  {{ form.company_url.lable }} {{ form.company_url }}<br />
-  {{ form.application_instructions.lable }} {{ form.application_instructions }}<br />
-  {{ form.job_posting.lable }} {{ form.job_posting }}<br />
-  {{ form.telework.lable }} {{ form.telework }}<br />
-  <input type=submit value=Register>
+  <p><label>Company Name: <input name='company_name'></label></p>
+  <p><label>Company Location: <input name='company_location'></label></p>
+  <p><label>Company URL: <input name='company_url'></label></p>
+  <p><label>Application Instructions: <input name='application_instructions'></label></p>
+  <p><label>Job Posting: <textarea name='job_posting'></textarea></label></p>
+  <p><label>Telework Opportunity? <input type='checkbox' name='company_name' value='yes'> Yes </label></p>
+  <input type='submit' value='Submit Job'>
 </form>
 {% endblock %}
