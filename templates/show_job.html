@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
 {% block main %}
-<table border="1" width=500px>
+<table border="1" width=650px>
   <tr>
-    <td>Company Name</td>
-    <td>{{ job.company_name }}</td>
+    <td width=150px>Company Name</td>
+    <td width=500px>{{ job.company_name }}</td>
   </tr>
   <tr>
     <td>Company Location</td>
@@ -16,7 +16,7 @@
   </tr>
   <tr>
     <td>Job Posting</td>
-    <td>{{ job.job_posting }}</td>
+    <td>{{ job.job_posting | safe}}</td>
   </tr>
   <tr>
     <td>Application Instructions</td>
