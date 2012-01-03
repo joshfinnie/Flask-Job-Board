@@ -1,13 +1,56 @@
 {% extends "base.html" %}
 
 {% block main %}
-<form method="post" action="/create">
-  <p><label>Company Name: <input name='company_name'></label></p>
-  <p><label>Company Location: <input name='company_location'></label></p>
-  <p><label>Company URL: <input name='company_url'></label></p>
-  <p><label>Application Instructions: <input name='application_instructions'></label></p>
-  <p><label>Job Posting: <textarea name='job_posting'></textarea></label></p>
-  <p><label>Telework Opportunity? <input type='checkbox' name='company_name' value='yes'> Yes </label></p>
-  <input type='submit' value='Submit Job'>
+<form method="post" action="/create" class="form-stacked">
+	<div class="clearfix">
+		<label for='company_name'>Company Name:</label>
+		<div class="input">
+			<input id='company_name' name='company_name' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='company_name'>Company Location:</label>
+		<div class="input">
+			<input id='company_location' name='company_location' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='company_name'>Company URL:</label>
+		<div class="input">
+			<input id='company_url' name='company_url' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='company_name'>Application Instructions:</label>
+		<div class="input">
+			<input id='application_instructions' name='application_instructions' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='job_posting'>Job Posting:</label>
+		<div class="input">
+			<textarea class="xxlarge" id="job_posting" name="job_posting" rows="15"></textarea>
+        <span class="help-block">
+          Paste in your job description.
+        </span>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='company_name'>Telework Opportunity?</label>
+		<div class="input">
+			<input type="checkbox" name="telework" id="telework" value="Yes" /></label>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+  <div class="actions">
+    <button type="submit" class="btn primary">Save Job</button>
+    &nbsp;
+    <button type="reset" class="btn">Cancel</button>
+   </div>
 </form>
 {% endblock %}
