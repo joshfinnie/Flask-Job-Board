@@ -55,8 +55,10 @@ def create_job():
 		job.created=datetime.utcnow()
 		job.save()
 		return redirect(url_for('home'))
-	return render_template('create_job.html')
+	else:
+		return render_template('create_job.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
+    app.debug = True
     app.run(host='0.0.0.0', port=port)
