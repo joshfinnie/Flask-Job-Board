@@ -58,6 +58,11 @@ def create_job():
 	else:
 		return render_template('create_job.html')
 
+@app.route('/job/<job_id>')
+def show_job(job_id):
+	job = Job.object.withid(job_id)
+	return render_template('show_job.html', job=job)
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.debug = True
