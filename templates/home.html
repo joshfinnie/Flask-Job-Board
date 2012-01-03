@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block main %}
+<h1>Welcome to Flask Job Board.</h1>
+<p>This website is suppose to show a proof-of-concept job board application using flask, mongodb, and heroku.</p>
+<p>Feel free to test the job creation process by <a href='/create'>clicking here</a>.</p>
 <h1> Job Offerings! </h1>
 {% for job in jobs %}
   <a href="/job/{{ job.id }}">{{ job.company_name }} - {{ job.job_title }}</a><br />
