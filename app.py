@@ -55,7 +55,7 @@ def create_job():
 		          app_instruction=request.form['app_instructions'],
 		          telework=request.form['telework'])
 		job.save()
-		redirect(url_for('/'))
+		return redirect(url_for('/'))
 	return render_template('create_job.html')
 
 if __name__ == "__main__":
