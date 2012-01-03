@@ -1,12 +1,16 @@
 import os
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, session, abort
+from flaskext.seasurf import SeaSurf
+
 import settings
 
 from mongoengine import connect, Document, StringField, EmailField, BooleanField, DateTimeField, URLField
 
 app = Flask(__name__)
 app.config.from_object(settings)
+
+csrf = SeaSurf(app)
 
 connect('app2312735', 
         host='staff.mongohq.com',
@@ -28,20 +32,6 @@ class Job(Document):
 	application_instructions = StringField(required=True)
 	telework = BooleanField(required=True)
 	created = DateTimeField(default = datetime.utcnow())
-
-@app.before_request
-def csrf_protect():
-    if request.method == "POST":
-        token = session.pop('_csrf_token', None)
-        if not token or token != request.form.get('_csrf_token'):
-            abort(403)
-
-def generate_csrf_token():
-    if '_csrf_token' not in session:
-        session['_csrf_token'] = os.urandom(15)
-    return session['_csrf_token']
-
-app.jinja_env.globals['csrf_token'] = generate_csrf_token
 
 @app.route("/")
 def hello():

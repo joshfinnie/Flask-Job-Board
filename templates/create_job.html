@@ -2,7 +2,6 @@
 
 {% block main %}
 <form method="post" action="/create" class="form-stacked">
-  <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
 	<div class="clearfix">
 		<label for='company_name'>Company Name:</label>
 		<div class="input">
@@ -47,6 +46,8 @@
 			<input type="checkbox" name="telework" id="telework" value="Yes" /></label>
 		</div><!-- /input -->
 	</div><!-- /clearfix -->
+
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
 
   <div class="actions">
     <button type="submit" class="btn primary">Save Job</button>
