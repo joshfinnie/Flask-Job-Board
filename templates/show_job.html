@@ -3,18 +3,23 @@
 {% block main %}
 <table border="1" width=500px>
   <tr>
+    <td>Company Name</td>
     <td>{{ job.company_name }}</td>
   </tr>
   <tr>
-    <td>{{ job.company_name }}</td>
+    <td>Company Location</td>
+    <td>{{ job.company_location }}</td>
   </tr>
   <tr>
-    <td>{{ job.company_name }}</td>
+    <td>Company URL</td>
+    <td><a href='{{ job.company_url }}'>{{ job.company_url }}</a></td>
   </tr>
   <tr>
+    <td>Job Posting</td>
     <td>{{ job.job_posting }}</td>
   </tr>
   <tr>
+    <td>Application Instructions</td>
     <td>{{ job.application_instructions }}</td>
   </tr>
 </table>

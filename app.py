@@ -54,7 +54,8 @@ def create_job():
 		job.application_instructions=request.form['application_instructions']
 		job.created=datetime.utcnow()
 		job.save()
-		return redirect(url_for('home'))
+		next_url = job.id
+		return redirect(url_for('show_job', job_id=next_url))
 	else:
 		return render_template('create_job.html')
 
