@@ -2,6 +2,7 @@
 
 {% block main %}
 <form method="post" action="/create" class="form-stacked">
+  <input name=_csrf_token type=hidden value="{{ csrf_token() }}">
 	<div class="clearfix">
 		<label for='company_name'>Company Name:</label>
 		<div class="input">
