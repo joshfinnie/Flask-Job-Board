@@ -53,6 +53,7 @@ def contact():
 @app.route('/create')
 def create_job():
 	form = Job_Form()
+	"""
 	if form.validate_on_submit():
 		job = Job(company_name=request.form['company_name'],
 		          company_location=request.form['company_location'], 
@@ -62,6 +63,7 @@ def create_job():
 		job.save()
 		next_url = "/%s" % job._id
 		redirect(url_for(next_url))	
+	"""
 	return render_template('create_job.html', form=form)
 
 if __name__ == "__main__":

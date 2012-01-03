@@ -1,16 +1,14 @@
 {% extends "base.html" %}
-{% from "_formhelpers.html" import render_field %}
 
 {% block main %}
 <form method="post" action="/create">
   {{ form.hidden_tag() }}
-  <dl>
-    {{ render_field(form.company_name) }}
-    {{ render_field(form.company_location) }}
-    {{ render_field(form.company_url) }}
-    {{ render_field(form.job_posting) }}
-    {{ render_field(form.telework) }}
-  </dl>
-  <p><input type=submit value=Register>
+  {{ form.company_name.lable }} {{ form.company_name }}<br />
+  {{ form.company_location.lable }} {{ form.company_location }}<br />
+  {{ form.company_url.lable }} {{ form.company_url }}<br />
+  {{ form.application_instructions.lable }} {{ form.application_instructions }}<br />
+  {{ form.job_posting.lable }} {{ form.job_posting }}<br />
+  {{ form.telework.lable }} {{ form.telework }}<br />
+  <input type=submit value=Register>
 </form>
 {% endblock %}
