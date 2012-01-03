@@ -34,7 +34,7 @@ class Job(Document):
 	created = DateTimeField()
 
 @app.route("/")
-def hello():
+def home():
     return render_template('home.html')
 
 @app.route('/about')
@@ -56,7 +56,7 @@ def create_job():
 		          telework=request.form['telework'],
 		          created=datetime.utcnow())
 		job.save()
-		return redirect(url_for('/'))
+		return redirect(url_for('home'))
 	return render_template('create_job.html')
 
 if __name__ == "__main__":
