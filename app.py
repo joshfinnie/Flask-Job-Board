@@ -30,7 +30,7 @@ class Job(Document):
 	company_url = URLField(required=True)
 	job_posting = StringField(required=True)
 	application_instructions = StringField(required=True)
-	telework = BooleanField(required=True)
+	telework = BooleanField()
 	created = DateTimeField()
 
 @app.route("/")
@@ -48,13 +48,14 @@ def contact():
 @app.route('/create', methods=['GET', 'POST'])
 def create_job():
 	if request.method == 'POST':
-		job = Job(company_name=request.form['company_name'],
-		          company_location=request.form['company_location'], 
-		          company_url=request.form['company_url'],
-		          job_posting=request.form['job_posting'],
-		          application_instructions=request.form['application_instructions'],
-		          telework=request.form['telework'],
-		          created=datetime.utcnow())
+		job = Job(company_name=request.form['company_name'])
+		job.company_location=request.form['company_location']
+		job.company_url=request.form['company_url']
+		job.job_posting=request.form['job_posting']
+		job.application_instructions=request.form['application_instructions']
+		if request.form['telework']:
+ 		    job.telework=request.form['telework']
+		job.created=datetime.utcnow()
 		job.save()
 		return redirect(url_for('home'))
 	return render_template('create_job.html')
