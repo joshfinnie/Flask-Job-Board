@@ -1,11 +1,11 @@
 import os
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for, session, abort
+from flask import Flask, render_template, request, redirect, url_for
 from flaskext.seasurf import SeaSurf
 
 import settings
 
-from mongoengine import connect, Document, StringField, EmailField, BooleanField, DateTimeField, URLField
+from mongoengine import connect, Document, StringField, EmailField, DateTimeField, URLField
 
 app = Flask(__name__)
 app.config.from_object(settings)
@@ -28,13 +28,15 @@ class Job(Document):
 	company_name = StringField(required=True)
 	company_location = StringField(required=True)
 	company_url = URLField(required=True)
+	job_title = StringField(required=True)
 	job_posting = StringField(required=True)
 	application_instructions = StringField(required=True)
 	created = DateTimeField()
 
 @app.route("/")
 def home():
-    return render_template('home.html')
+	jobs = Job.objects.all()
+	return render_template('home.html', jobs=jobs)
 
 @app.route('/about')
 def about():
@@ -50,6 +52,7 @@ def create_job():
 		job = Job(company_name=request.form['company_name'])
 		job.company_location=request.form['company_location']
 		job.company_url=request.form['company_url']
+		job.job_title=request.form['job_title']
 		job.job_posting=request.form['job_posting']
 		job.application_instructions=request.form['application_instructions']
 		job.created=datetime.utcnow()

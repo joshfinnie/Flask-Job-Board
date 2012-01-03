@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
 {% block main %}
-<h1> Home page! </h1>
+<h1> Job Offerings! </h1>
+{% for job in jobs %}
+  <a href="/job/{{ job.id }}">{{ job.company_name }} - {{ job.job_title }}</a><br />
+{% endfor %}
 {% endblock %}
