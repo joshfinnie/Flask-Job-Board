@@ -1,7 +1,7 @@
 {% extends "base.html" %}
+{% from "_formhelpers.html" import render_field %}
 
 {% block main %}
-{% from "_formhelpers.html" import render_field %}
 <form method="post" action="/create">
   {{ form.hidden_tag() }}
   <dl>

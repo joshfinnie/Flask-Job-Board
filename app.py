@@ -61,9 +61,8 @@ def create_job():
 		          telework=request.form['telework'])
 		job.save()
 		next_url = "/%s" % job._id
-		redirect(url_for(next_url))
-	else:
-		return render_template('create_job.html', form=form)
+		redirect(url_for(next_url))	
+	return render_template('create_job.html', form=form)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
