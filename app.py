@@ -29,9 +29,9 @@ class Job(Document):
 	company_location = StringField(required=True)
 	company_url = URLField(required=True)
 	job_posting = StringField(required=True)
-	app_instructions = StringField(required=True)
+	application_instructions = StringField(required=True)
 	telework = BooleanField(required=True)
-	created = DateTimeField(default = datetime.utcnow())
+	created = DateTimeField()
 
 @app.route("/")
 def hello():
@@ -52,8 +52,9 @@ def create_job():
 		          company_location=request.form['company_location'], 
 		          company_url=request.form['company_url'],
 		          job_posting=request.form['job_posting'],
-		          app_instruction=request.form['app_instructions'],
-		          telework=request.form['telework'])
+		          application_instructions=request.form['application_instructions'],
+		          telework=request.form['telework'],
+		          created=datetime.utcnow())
 		job.save()
 		return redirect(url_for('/'))
 	return render_template('create_job.html')
