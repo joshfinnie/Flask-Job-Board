@@ -41,7 +41,7 @@ def about():
 def contact():
 	return render_template('contact.html')
 
-@app.route('/create')
+@app.route('/create', methods=['GET', 'POST'])
 def create_job():
 	if request.method == 'POST':
 		job = Job(company_name=request.form['company_name'],
