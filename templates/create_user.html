@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block main %}
+<form method="post" action="/create" class="form-stacked">
+	<div class="clearfix">
+		<label for='username'>Username:</label>
+		<div class="input">
+			<input class='span12' id='username' name='username' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='first_name'>First Name:</label>
+		<div class="input">
+			<input class='span12' id='first_name' name='first_name' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='last_name'>Last Name:</label>
+		<div class="input">
+			<input class='span12' id='last_name' name='last_name' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='email'>Email:</label>
+		<div class="input">
+			<input class='span12' id='email' name='email' type='text'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='password'>Password:</label>
+		<div class="input">
+			<input class='span12' id='password' name='password' type='password'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='password2'>Confirm Password:</label>
+		<div class="input">
+			<input class='span12' id='password2' name='password2' type='password'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+  <div class="actions">
+    <button type="submit" class="btn primary">Create User</button>
+    &nbsp;
+    <button type="reset" class="btn">Cancel</button>
+   </div>
+</form>
+{% endblock %}

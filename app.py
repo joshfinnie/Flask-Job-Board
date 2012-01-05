@@ -1,7 +1,8 @@
 import os
 from datetime import datetime
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flaskext.seasurf import SeaSurf
+from flaskext.bcrypt import Bcrypt
 
 import settings
 
@@ -11,6 +12,7 @@ app = Flask(__name__)
 app.config.from_object(settings)
 
 csrf = SeaSurf(app)
+bcrypt = Bcrypt(app)
 
 connect('app2312735', 
         host='staff.mongohq.com',
@@ -23,6 +25,10 @@ class User(Document):
 	email = EmailField(required=True)
 	first_name = StringField(max_length=50)
 	last_name = StringField(max_length=50)
+	location = StringField()
+	homepage = StringField()
+	passhash = StringField()
+	created = DateTimeField()
 
 class Job(Document):
 	company_name = StringField(required=True)
@@ -58,9 +64,62 @@ def create_job():
 		job.created=datetime.utcnow()
 		job.save()
 		next_url = job.id
+		flash(u'Job successfully created.', 'success')
 		return redirect(url_for('show_job', job_id=next_url))
 	else:
 		return render_template('create_job.html')
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signin():
+	if request.method == 'POST':
+		if request.form['password'] == request.form['password2']:
+			user = User(username=request.form['username'])
+			user.email=request.form['email']
+			user.first_name=request.form['first_name']
+			user.last_name=request.form['last_name']
+			user.location=request.form['location']
+			user.passhash=bcrypt.generate_password_hash(request.form['password'])
+			user.homepage='None'
+			user.created=datetime.utcnow()
+			user.save()
+			user_id=user.id
+			flash(u'Successfully created new user.', 'success')
+			return redirect(url_for('show_user', user=user_id))
+		else:
+			flash(u'Passwords do not match.', 'error')
+			return render_template('create_user.html')
+	else:
+		return render_template('create_user.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+	if request.method == 'POST':
+		user = User.objects(username=request.form['username'])
+		if user is None:
+			flash(u'Password or Username is incorrect.', 'error')
+			return render_template('login.html')
+		elif not bcrypt.check_password_hash(user.passhash, request.form['password']):
+			flash(u'Password or Username is incorrect.', 'error')
+			return render_template('login.html')
+		else:
+			session['username'] = user.username
+			session['logged_in'] = True
+			flash(u'You have been successfully logged in.', 'success')
+			return redirect('home')
+	else:
+		return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    session.pop('logged_in', None)
+    flash(u'You have been successfully logged out.', 'success')
+    return render_template('index.html')
+
+@app.route('/user/<user_id>')
+def show_user(user_id):
+	user = User.objects.with_id(user_id)
+	return render_template('show_user.html', user=user)
 
 @app.route('/job/<job_id>')
 def show_job(job_id):

@@ -41,7 +41,11 @@
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
-          <p class='pull-right'><a href='/login'>Log in</a> or <a href='/signup'>sign up</a>.
+          {% if session['loggedin'] %}
+            <p class='pull-right'>Welcome {{ session['username'] }}! <a href='/logout'>Log out</a></p>
+          {% else %}
+            <p class='pull-right'><a href='/login'>Log in</a> or <a href='/signup'>sign up</a>.</p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -50,6 +54,17 @@
 
       <div class="content">
         <div class="row">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, message in messages %}
+                <div class="alert-message {{ category }}">
+                <!-- Categories are: warning, error, success, info -->
+                  <a class="close" href="#">×</a>
+                  <p>{{ message }}</p>
+                </div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
           {% block main %}
           {% endblock %}
         </div>
@@ -75,7 +90,7 @@
 
   <!-- Additional JavaScript libraries and plugins... -->
   <script src="/static/js/libs/bootstrap-dropdown.js"></script>
-
+  <script src="/static/js/libs/bootstrap-alerts.js"></script>
   {% block js %}{% endblock %}
 
 
