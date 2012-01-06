@@ -126,6 +126,11 @@ def show_job(job_id):
 	job = Job.objects.with_id(job_id)
 	return render_template('show_job.html', job=job)
 
+@app.route('users')
+def show_all_users():
+	users = User.objects.all()
+	return render_template('show_all_users.html', users=users)
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.debug = True
