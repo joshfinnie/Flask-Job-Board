@@ -1,1 +1,1 @@
-web: gunicorn app -b "0.0.0.0:$PORT"
+web: gunicorn flask-job-board:app -b "0.0.0.0:$PORT"

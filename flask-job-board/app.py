@@ -202,6 +202,10 @@ def show_all_users():
 	users = User.objects.all()
 	return render_template('show_all_users.html', users=users)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
     app.debug = True
