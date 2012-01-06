@@ -30,6 +30,10 @@ class User(Document):
 	passhash = StringField()
 	created = DateTimeField()
 
+	meta = {
+        'ordering': ['-created']
+    }
+
 class Job(Document):
 	company_name = StringField(required=True)
 	company_location = StringField(required=True)
@@ -38,6 +42,10 @@ class Job(Document):
 	job_posting = StringField(required=True)
 	application_instructions = StringField(required=True)
 	created = DateTimeField()
+
+	meta = {
+        'ordering': ['-created']
+    }
 
 @app.route("/")
 def home():
@@ -94,7 +102,7 @@ def signin():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
-		user = User.objects(username=request.form['username'])
+		user = User.objects.get(username=request.form['username'])
 		if user is None:
 			flash(u'Password or Username is incorrect.', 'error')
 			return render_template('login.html')
