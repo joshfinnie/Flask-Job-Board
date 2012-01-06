@@ -5,3 +5,4 @@ flask
 mongoengine
 flask-seasurf
 flask-bcrypt
+gunicorn
