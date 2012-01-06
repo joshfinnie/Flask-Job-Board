@@ -102,18 +102,20 @@ def signin():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'POST':
-		user = User.objects.get(username=request.form['username'])
-		if user is None:
-			flash(u'Password or Username is incorrect.', 'error')
-			return render_template('login.html')
-		elif not bcrypt.check_password_hash(user.passhash, request.form['password']):
+		try:
+			user = User.objects.get(username=request.form['username'])
+		except User.DoesNotExist:
 			flash(u'Password or Username is incorrect.', 'error')
 			return render_template('login.html')
 		else:
-			session['username'] = user.username
-			session['logged_in'] = True
-			flash(u'You have been successfully logged in.', 'success')
-			return redirect('home')
+		 	if not bcrypt.check_password_hash(user.passhash, request.form['password']):
+				flash(u'Password or Username is incorrect.', 'error')
+				return render_template('login.html')
+			else:
+				session['username'] = user.username
+				session['logged_in'] = True
+				flash(u'You have been successfully logged in.', 'success')
+				return redirect('home')
 	else:
 		return render_template('login.html')
 
