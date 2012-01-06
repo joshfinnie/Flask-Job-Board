@@ -41,7 +41,7 @@
             <li><a href="/about">About</a></li>
             <li><a href="/contact">Contact</a></li>
           </ul>
-          {% if session['loggedin'] %}
+          {% if session.logged_in %}
             <p class='pull-right'>Welcome {{ session['username'] }}! <a href='/logout'>Log out</a></p>
           {% else %}
             <p class='pull-right'><a href='/login'>Log in</a> or <a href='/signup'>sign up</a>.</p>

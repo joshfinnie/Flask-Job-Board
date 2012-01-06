@@ -115,7 +115,7 @@ def login():
 				session['username'] = user.username
 				session['logged_in'] = True
 				flash(u'You have been successfully logged in.', 'success')
-				return redirect('home')
+				return redirect(url_for('home'))
 	else:
 		return render_template('login.html')
 
