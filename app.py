@@ -124,7 +124,7 @@ def logout():
     session.pop('username', None)
     session.pop('logged_in', None)
     flash(u'You have been successfully logged out.', 'success')
-    return render_template('index.html')
+    return redirect(url_for('home'))
 
 @app.route('/user/<user_id>')
 def show_user(user_id):
