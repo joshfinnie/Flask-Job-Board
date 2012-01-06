@@ -19,7 +19,7 @@ bcrypt = Bcrypt(app)
 database = urlparse(os.environ.get('MONGOHQ_URL'))
 
 connect(database.path[1:], 
-        host=database.host,
+        host=database.hostname,
         port=database.port, 
         username=database.username,
         password=database.password)
