@@ -1,8 +1,10 @@
 import os
 from datetime import datetime
+from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flaskext.seasurf import SeaSurf
 from flaskext.bcrypt import Bcrypt
+from functools import wraps
 
 import settings
 
@@ -14,11 +16,13 @@ app.config.from_object(settings)
 csrf = SeaSurf(app)
 bcrypt = Bcrypt(app)
 
-connect('app2312735', 
-        host='staff.mongohq.com',
-        port=10092, 
-        username='heroku',
-        password='ded467f4021d3ca1c394707cbb2a8760')
+database = urlparse(os.environ.get('MONGOHQ_URL'))
+
+connect(database.path[1:], 
+        host=database.host,
+        port=database.port, 
+        username=database.username,
+        password=database.password)
 
 class User(Document):
 	username = StringField(required=True)
@@ -47,6 +51,15 @@ class Job(Document):
         'ordering': ['-created']
     }
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.username is None:
+			flash(u'Login is required.', 'warning')
+			return redirect(url_for('login', next=request.url))
+        return f(*args, **kwargs)
+    return decorated_function
+
 @app.route("/")
 def home():
 	jobs = Job.objects.all()
@@ -61,6 +74,7 @@ def contact():
 	return render_template('contact.html')
 
 @app.route('/create', methods=['GET', 'POST'])
+@login_required
 def create_job():
 	if request.method == 'POST':
 		job = Job(company_name=request.form['company_name'])
@@ -123,8 +137,29 @@ def login():
 def logout():
     session.pop('username', None)
     session.pop('logged_in', None)
-    flash(u'You have been successfully logged out.', 'success')
+    flash(u'You have been successfully logged out.', 'info')
     return redirect(url_for('home'))
+
+#### WORK IN PROGRESS ####
+
+@app.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+	if request.method == 'POST':
+		user=User.objects.first(username=session.username)
+		user.email=request.form['email']
+		user.first_name=request.form['first_name']
+		user.last_name=request.form['last_name']
+		user.location=request.form['location']
+		user.homepage=request.form['homepage']
+		user.save()
+		user_id=user.id
+		flash(u'Profile was successfully updated.', 'success')
+		return redirect(url_for('show_user', user_id=user_id))
+	else:
+		user=User.objects.first(username=session.username)
+		return render_template('settings.html', user=user)
+
 
 @app.route('/user/<user_id>')
 def show_user(user_id):
