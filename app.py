@@ -54,7 +54,7 @@ class Job(Document):
 def login_required(f):
     @wraps(f)
     def decorated_function(*args, **kwargs):
-        if session.logged_in:
+        if session.get("logged_in"):
         	return f(*args, **kwargs)
         else:
 			flash(u'Login is required.', 'warning')
