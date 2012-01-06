@@ -6,7 +6,6 @@
 <p>Feel free to test the job creation process by <a href='/create'>clicking here</a>.</p>
 <h1> Job Offerings! </h1>
 {% for job in jobs %}
-  <a href="/job/{{ job.id }}">{{ job.company_name }} - {{ job.job_title }}</a>.
-   Created {{ job.created|timesince }}<br />
+  Created {{ job.created|timesince }}. <a href="/job/{{ job.id }}">{{ job.company_name }} - {{ job.job_title }}</a><br />
 {% endfor %}
 {% endblock %}

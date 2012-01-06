@@ -168,8 +168,6 @@ def logout():
     flash(u'You have been successfully logged out.', 'info')
     return redirect(url_for('home'))
 
-#### WORK IN PROGRESS ####
-
 @app.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():

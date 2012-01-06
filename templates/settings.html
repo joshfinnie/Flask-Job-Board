@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block main %}
+<h1>Settings</h1>
+<p>Username: {{ user.username }}</p>
+<form method="post" action="/login" class="form-stacked">
+	<div class="clearfix">
+		<label for='first_name'>First Name:</label>
+		<div class="input">
+			<input class='span12' id='first_name' name='first_name' type='text' value='{{ user.first_name }}'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+	<form method="post" action="/login" class="form-stacked">
+	<div class="clearfix">
+		<label for='username'>Last Name:</label>
+		<div class="input">
+			<input class='span12' id='username' name='username' type='text' value='{{ user.last_name }}'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+	<form method="post" action="/login" class="form-stacked">
+	<div class="clearfix">
+		<label for='username'>Location:</label>
+		<div class="input">
+			<input class='span12' id='username' name='username' type='text' value='{{ user.location }}'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+	<form method="post" action="/login" class="form-stacked">
+	<div class="clearfix">
+		<label for='username'>Homepage:</label>
+		<div class="input">
+			<input class='span12' id='username' name='username' type='text' value='{{ user.homepage }}'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+{% endblock %}

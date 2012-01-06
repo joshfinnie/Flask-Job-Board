@@ -42,7 +42,11 @@
             <li><a href="/contact">Contact</a></li>
           </ul>
           {% if session.logged_in %}
-            <p class='pull-right'>Welcome {{ session['username'] }}! <a href='/logout'>Log out</a></p>
+            <p class='pull-right'>
+              Welcome {{ session['username'] }}! 
+              <a href='/logout'>Log out</a>
+              <a href='/settings'>Settings</a>
+            </p>
           {% else %}
             <p class='pull-right'><a href='/login'>Log in</a> or <a href='/signup'>sign up</a>.</p>
           {% endif %}
