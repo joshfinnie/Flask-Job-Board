@@ -126,7 +126,7 @@ def show_job(job_id):
 	job = Job.objects.with_id(job_id)
 	return render_template('show_job.html', job=job)
 
-@app.route('users')
+@app.route('/users')
 def show_all_users():
 	users = User.objects.all()
 	return render_template('show_all_users.html', users=users)
