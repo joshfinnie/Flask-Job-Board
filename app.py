@@ -84,7 +84,7 @@ def signin():
 			user.save()
 			user_id=user.id
 			flash(u'Successfully created new user.', 'success')
-			return redirect(url_for('show_user', user=user_id))
+			return redirect(url_for('show_user', user_id=user_id))
 		else:
 			flash(u'Passwords do not match.', 'error')
 			return render_template('create_user.html')
