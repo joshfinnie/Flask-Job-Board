@@ -57,7 +57,7 @@
           {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
               {% for category, message in messages %}
-                <div class="alert-message {{ category }}">
+                <div class="alert-message {{ category }} fade in" data-alert='alert'>
                 <!-- Categories are: warning, error, success, info -->
                   <a class="close" href="#">×</a>
                   <p>{{ message }}</p>

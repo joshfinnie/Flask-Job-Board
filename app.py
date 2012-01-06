@@ -77,7 +77,7 @@ def signin():
 			user.email=request.form['email']
 			user.first_name=request.form['first_name']
 			user.last_name=request.form['last_name']
-			user.location=request.form['location']
+			user.location='None'
 			user.passhash=bcrypt.generate_password_hash(request.form['password'])
 			user.homepage='None'
 			user.created=datetime.utcnow()
