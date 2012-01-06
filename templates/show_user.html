@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block main %}
+<table border="1" width=650px>
+  <tr>
+    <td width=150px>Username</td>
+    <td width=500px><strong>{{ user.username }}</strong></td>
+  </tr>
+  <tr>
+    <td>Full Name</td>
+    <td>{{ user.first_name }} {{ user.last_name }}</td>
+  </tr>
+  <tr>
+    <td>Location</td>
+    <td>{{ user.location }}</td>
+  </tr>
+  <tr>
+    <td>Homepage</td>
+    <td>{{ user.homepage }}</td>
+  </tr>
+		<td>{{ job.application_instructions }}</td>
+  </tr>
+</table>
+{% endblock %}
