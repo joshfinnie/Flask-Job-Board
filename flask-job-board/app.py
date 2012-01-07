@@ -4,6 +4,7 @@ from urlparse import urlparse
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flaskext.seasurf import SeaSurf
 from flaskext.bcrypt import Bcrypt
+from flaskext.gravatar import Gravatar
 from functools import wraps
 
 import settings
@@ -15,8 +16,9 @@ app.config.from_object(settings)
 
 csrf = SeaSurf(app)
 bcrypt = Bcrypt(app)
+gravatar = Gravatar(app, size=160, default='mm')
 
-database = urlparse(os.environ.get('MONGOHQ_URL'))
+database = urlparse(os.environ.get('MONGOHQ_URL', 'mongodb://localhost/flask-job-board'))
 
 connect(database.path[1:], 
         host=database.hostname,
@@ -107,7 +109,11 @@ def create_job():
 	if request.method == 'POST':
 		job = Job(company_name=request.form['company_name'])
 		job.company_location=request.form['company_location']
-		job.company_url=request.form['company_url']
+		company_url=request.form['company_url']
+		if company_url[:4] == 'http':
+			job.company_url=company_url
+		else:
+			job.company_url='http://'+company_url
 		job.job_title=request.form['job_title']
 		job.job_posting=request.form['job_posting']
 		job.application_instructions=request.form['application_instructions']
@@ -133,6 +139,8 @@ def signin():
 			user.created=datetime.utcnow()
 			user.save()
 			user_id=user.id
+			session['username'] = user.username
+			session['logged_in'] = True
 			flash(u'Successfully created new user.', 'success')
 			return redirect(url_for('show_user', user_id=user_id))
 		else:
@@ -143,6 +151,7 @@ def signin():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+	next = request.values.get('next', '')
 	if request.method == 'POST':
 		try:
 			user = User.objects.get(username=request.form['username'])
@@ -157,9 +166,8 @@ def login():
 				session['username'] = user.username
 				session['logged_in'] = True
 				flash(u'You have been successfully logged in.', 'success')
-				return redirect(url_for('home'))
-	else:
-		return render_template('login.html')
+				return redirect(next or url_for('home'))
+	return render_template('login.html')
 
 @app.route('/logout')
 def logout():
@@ -172,7 +180,7 @@ def logout():
 @login_required
 def settings():
 	if request.method == 'POST':
-		user=User.objects.first(username=session.username)
+		user=User.objects.get(username=session.get('username'))
 		user.email=request.form['email']
 		user.first_name=request.form['first_name']
 		user.last_name=request.form['last_name']
@@ -183,7 +191,7 @@ def settings():
 		flash(u'Profile was successfully updated.', 'success')
 		return redirect(url_for('show_user', user_id=user_id))
 	else:
-		user=User.objects.first(username=session.username)
+		user=User.objects.get(username=session.get('username'))
 		return render_template('settings.html', user=user)
 
 

@@ -17,7 +17,8 @@
 	</div><!-- /clearfix -->
 
 	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
-
+	<input type='hidden' name='next' value="{{ request.values.next or '' }}">
+	
   <div class="actions">
     <button type="submit" class="btn primary">Login</button>
     &nbsp;

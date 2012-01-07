@@ -4,7 +4,9 @@
 <table border="1" width=650px>
   <tr>
     <td width=150px>Username</td>
-    <td width=500px><strong>{{ user.username }}</strong></td>
+    <td width=500px><strong>{{ user.username }}</strong><br />
+    <img src='{{ user.email | gravatar }}' alt='{{ user.username }} avatar' />
+    </td>
   </tr>
   <tr>
     <td>Full Name</td>
@@ -16,7 +18,11 @@
   </tr>
   <tr>
     <td>Homepage</td>
-    <td>{{ user.homepage }}</td>
+    {% if user.homepage == 'None' %}
+      <td>{{ user.homepage }}</td>
+    {% else %}
+      <td><a href='{{ user.homepage }}'>{{ user.homepage }}</a></td>
+    {% endif %}
   </tr>
 </table>
 {% endblock %}

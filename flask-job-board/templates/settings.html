@@ -2,33 +2,50 @@
 
 {% block main %}
 <h1>Settings</h1>
-<p>Username: {{ user.username }}</p>
-<form method="post" action="/login" class="form-stacked">
+<div class='userinfo'>
+<h2>{{ user.username }}</h2>
+<p><img src='{{ user.email | gravatar }}' alt='{{ user.username }} avatar' /></p>
+</div><!-- /userinfo -->
+<form method="post" action="/settings" class="form-stacked">
 	<div class="clearfix">
 		<label for='first_name'>First Name:</label>
 		<div class="input">
 			<input class='span12' id='first_name' name='first_name' type='text' value='{{ user.first_name }}'>
 		</div><!-- /input -->
 	</div><!-- /clearfix -->
-	<form method="post" action="/login" class="form-stacked">
+
 	<div class="clearfix">
-		<label for='username'>Last Name:</label>
+		<label for='last_name'>Last Name:</label>
 		<div class="input">
-			<input class='span12' id='username' name='username' type='text' value='{{ user.last_name }}'>
+			<input class='span12' id='last_name' name='last_name' type='text' value='{{ user.last_name }}'>
 		</div><!-- /input -->
 	</div><!-- /clearfix -->
-	<form method="post" action="/login" class="form-stacked">
+
 	<div class="clearfix">
-		<label for='username'>Location:</label>
+		<label for='email'>Email:</label>
 		<div class="input">
-			<input class='span12' id='username' name='username' type='text' value='{{ user.location }}'>
+			<input class='span12' id='email' name='email' type='text' value='{{ user.email }}'>
 		</div><!-- /input -->
 	</div><!-- /clearfix -->
-	<form method="post" action="/login" class="form-stacked">
+
 	<div class="clearfix">
-		<label for='username'>Homepage:</label>
+		<label for='location'>Location:</label>
 		<div class="input">
-			<input class='span12' id='username' name='username' type='text' value='{{ user.homepage }}'>
+			<input class='span12' id='location' name='location' type='text' value='{{ user.location }}'>
 		</div><!-- /input -->
 	</div><!-- /clearfix -->
+
+	<div class="clearfix">
+		<label for='homepage'>Homepage:</label>
+		<div class="input">
+			<input class='span12' id='homepage' name='homepage' type='text' value='{{ user.homepage }}'>
+		</div><!-- /input -->
+	</div><!-- /clearfix -->
+
+	<input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+
+  	<div class="actions">
+    <button type="submit" class="btn primary">Update Profile</button>
+   	</div>
+</form>
 {% endblock %}

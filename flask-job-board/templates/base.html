@@ -19,7 +19,7 @@
   <![endif]-->
 
   <link rel="shortcut icon" href="/static/favicon.ico">
-  <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/static/css/bootstrap.css">
   <link rel="stylesheet/less" href="/static/css/main.less">
   {% block css %}{% endblock %}
 
@@ -43,12 +43,12 @@
           </ul>
           {% if session.logged_in %}
             <p class='pull-right'>
-              Welcome {{ session['username'] }}! 
-              <a href='/logout'>Log out</a>
+              Welcome {{ session['username'] }}! | 
+              <a href='/logout'>Log out</a> | 
               <a href='/settings'>Settings</a>
             </p>
           {% else %}
-            <p class='pull-right'><a href='/login'>Log in</a> or <a href='/signup'>sign up</a>.</p>
+            <p class='pull-right'><a href='/login'>Log in</a> | <a href='/signup'>sign up</a>.</p>
           {% endif %}
         </div>
       </div>
@@ -95,6 +95,7 @@
   <!-- Additional JavaScript libraries and plugins... -->
   <script src="/static/js/libs/bootstrap-dropdown.js"></script>
   <script src="/static/js/libs/bootstrap-alerts.js"></script>
+  <script>window.setTimeout(function() { $(".alert-message").alert('close'); }, 2000);</script>
   {% block js %}{% endblock %}
 
 
